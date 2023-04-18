@@ -84,6 +84,43 @@ h2{
 	font-size: 30px;
 	color: #1D6154
 }
+
+.filtres
+{display: flex;
+justify-content: center;}
+
+
+#btn-1:hover
+{background-color: #1D6154;
+color: white;}
+
+#btn-2:hover
+{background-color: #1D6154;
+color: white;}
+
+#btn-3:hover
+{background-color: #1D6154;
+color: white;}
+
+#btn-4:hover
+{background-color: #1D6154;
+color: white;}
+
+#btn-1, #btn-2, #btn-3, #btn-4
+{font-size: 16px;
+font-style: bold;
+font-family: Syne;
+background-color: white;
+display: flex;
+border: solid 2px #1D6154;
+border-radius: 20px;
+margin-right: 20px;
+padding: 10px 20px 10px 20px;
+margin-bottom: 30px;}
+
+
+
+
 nav ul {
 	display: flex;
 	align-items: center;
@@ -134,11 +171,13 @@ li:hover {
 }
 
 .gallery img {
-	width: 100%;
+	width: 100%;}
 
-}
+
+
+
 #contact {
-	width: 50%;
+	width: 50px;
 margin: auto;
 }
 #contact > * {
