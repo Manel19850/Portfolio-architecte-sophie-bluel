@@ -8,7 +8,7 @@
     const title = article.title;
     
     const imageUrlElement = document.createElement("img");
-    imageUrlElement.src ="imageUrl";
+    imageUrlElement.src =imageUrl;
     
     const titleElement = document.createElement("p");
     titleElement.innerText= title ;
