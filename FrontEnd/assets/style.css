@@ -174,9 +174,10 @@ li:hover {
 	width: 100%;}
 
 #contact {
-	width: 50px;
+width: 50%;
 margin: auto;
 }
+
 #contact > * {
 	text-align: center;
 
