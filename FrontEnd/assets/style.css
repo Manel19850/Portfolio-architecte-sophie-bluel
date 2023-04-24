@@ -87,29 +87,24 @@ h2{
 	margin-top:130px;
 }
 
-.filtres
-{display: flex;
-justify-content: center;}
-
-
-#btn-1:hover
+#All:hover
 {background-color: #1D6154;
 color: white;}
 
-#btn-2:hover
+#Objet:hover
 {background-color: #1D6154;
 color: white;}
 
-#btn-3:hover
+#Appartements:hover
 {background-color: #1D6154;
 color: white;}
 
-#btn-4:hover
+#HotelEtRestau:hover
 {background-color: #1D6154;
 color: white;}
 
  
-#btn-1, #btn-2, #btn-3, #btn-4
+#All, #Objets, #Appartements, #HotelEtRestau
 {font-size: 16px;
 font-style: bold;
 font-family: Syne;
@@ -121,6 +116,9 @@ margin-right: 20px;
 padding: 10px 20px 10px 20px;
 margin-bottom: 30px;}
 
+.filres
+{display: flex;
+justify-content: center;}
 
 nav ul {
 	display: flex;
