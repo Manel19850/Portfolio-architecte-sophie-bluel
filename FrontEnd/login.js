@@ -7,8 +7,11 @@ butonConex.addEventListener("click", function (){
 if (loginEmail.value.length == 0 || loginMotDePasse.value.length == 0){
     alert('ERROR'); return
 } 
+
+if (loginEmail.value === "sophie.bluel@test.tld" && loginMotDePasse.value === "S0phie") {
 console.log(loginEmail.value);
 console.log (loginMotDePasse.value);
+
   fetch ("http://localhost:5678/api/users/login",{
     method:"POST",
     headers: {"Content-Type":"application/json"},
@@ -16,6 +19,7 @@ console.log (loginMotDePasse.value);
       email: loginEmail.value,
       password: loginMotDePasse.value
     })
+  })
     .then(response => response.json())
     .then(data => {
       console.log (data);
@@ -23,8 +27,10 @@ console.log (loginMotDePasse.value);
         window.location.replace("index.html");
       }
     })
-  })
-})
+  } else {
+    alert('Identifiants incorrects');
+
+  }})
 
 
 
