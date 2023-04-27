@@ -31,12 +31,13 @@ fetch ("http://localhost:5678/api/users/login",{
         if (data.success) {
           window.location.replace("index.html");
         }
+
       })
-    
-    })
+      .catch((error) => {
+        console.error(error);
+        alert(error.message);
+  })
 
-  
-
-
+})
 
 

@@ -124,15 +124,30 @@ margin-bottom: 30px;}
 /* création de la fenetre modale*/
 
 .btn-modal
-{margin-left: 20px;}
+{margin-left: 15px;
+border: none;
+font-size: 16px;
+background-color: #FFFFFF;
+text-decoration: underline;
+}
+
+.fa-pen-to-square
+{margin-left:40px;
+font-size: 20px;
+color: black;
+margin-bottom: 10px;}
 
 .modal 
 {border: solid 2px #1D6154;
 border-radius: 10px;
 background-color: #FFFFFF;
 width:740px;
-height:800px;
-margin-left:15%;}
+height: 850px;
+margin-left:15%;
+display: none;}
+
+.modal.active
+{display: block;}
 
 
 .close
@@ -158,9 +173,10 @@ display: flex;
 flex-wrap: wrap;}
 
 .modal-body p
-{margin-top: -30px;
-margin-bottom: 10px;
-font-size: 12px;}
+{margin-top: -25px;
+margin-bottom: 15px;
+font-size: 12px;
+margin-left: 5px;}
 
 
 .icone

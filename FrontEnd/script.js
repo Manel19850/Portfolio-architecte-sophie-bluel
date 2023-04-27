@@ -85,21 +85,20 @@ fetch("http://localhost:5678/api/works")
     })
 
 
-    const bouttonModifier = document.querySelectorAll (".btn-modal");
+    const bouttonModifier = document.querySelector(".btn-modal");
     console.log(bouttonModifier);
-    const fenetreModal = document.querySelectorAll (".modal");
-    const bouttonClose = document.querySelectorAll (".close");
+    const fenetreModal = document.querySelector(".modal");
+    const bouttonClose = document.querySelector(".close");
     console.log (bouttonClose);
 
 
-    bouttonModifier.forEach((bouttonModifier, fenetre) => {
-       bouttonModifier.addEventListener("click", () => {
-        fenetreModal[fenetre].classList.add("show");
-        });
-      });
+bouttonModifier.addEventListener("click", ouvrirModal);
+bouttonClose.addEventListener("click", fermerModal);
 
-      bouttonClose.forEach((bouttonClose, fenetre) => {
-        bouttonClose.addEventListener("click", () => {
-          fenetreModal[fenetre].classList.remove("show");
-        });
-      });  
+function ouvrirModal() {
+fenetreModal.classList.add("active");
+}
+
+function fermerModal() {
+  fenetreModal.classList.remove("active");
+}
