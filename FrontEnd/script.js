@@ -83,3 +83,23 @@ fetch("http://localhost:5678/api/works")
         })
 
     })
+
+
+    const bouttonModifier = document.querySelectorAll (".btn-modal");
+    console.log(bouttonModifier);
+    const fenetreModal = document.querySelectorAll (".modal");
+    const bouttonClose = document.querySelectorAll (".close");
+    console.log (bouttonClose);
+
+
+    bouttonModifier.forEach((bouttonModifier, fenetre) => {
+       bouttonModifier.addEventListener("click", () => {
+        fenetreModal[fenetre].classList.add("show");
+        });
+      });
+
+      bouttonClose.forEach((bouttonClose, fenetre) => {
+        bouttonClose.addEventListener("click", () => {
+          fenetreModal[fenetre].classList.remove("show");
+        });
+      });  
