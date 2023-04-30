@@ -12,7 +12,11 @@ fetch("http://localhost:5678/api/works")
                 const article = product[i];
                 const imageUrl = article.imageUrl;
                 const title = article.title;
-    
+                const id = article.id
+                console.log (id);
+
+        
+
                 const card = document.createElement("div");
     
                 const imageUrlElement = document.createElement("img");
@@ -20,6 +24,7 @@ fetch("http://localhost:5678/api/works")
     
                 const titleElement = document.createElement("p");
                 titleElement.innerText = title;
+            
     
                 sectionGallery = document.querySelector(".gallery")
                 card.appendChild(imageUrlElement);
@@ -28,7 +33,7 @@ fetch("http://localhost:5678/api/works")
     
             }
         }
-        
+
         AfficherProjet(product);
 
         const BoutonAll = document.querySelector("#All");
@@ -82,23 +87,46 @@ fetch("http://localhost:5678/api/works")
             console.log(projetFiltre);
         })
 
+        /* Fenêtre modale 1 et 2*/
+
+        /* création des différents bouttons*/
+        const bouttonModifier = document.querySelector(".btn-modal");
+        const fenetreModal = document.querySelector(".modal");
+        const bouttonClose = document.querySelector(".close");
+        const overlayModal= document.querySelector(".overlay-modal") ;
+        const boutonAjouter = document.querySelector(".ajout-img");
+        const fenetreModalBis = document.querySelector(".modal-bis");
+        const boutonFermerModalBis = document.querySelector(".close-bis");
+        
+        /* Action des différents bouttons*/
+        bouttonModifier.addEventListener("click", afficherModal);
+        bouttonClose.addEventListener("click", fermerModal);
+        boutonAjouter.addEventListener("click", afficherModalBis);
+        boutonFermerModalBis.addEventListener("click", fermerModalBis);
+    
+        /*affiche ma modal 1 et mon overlay*/
+        function afficherModal() {
+        fenetreModal.classList.add("active");
+        overlayModal.classList.add("active");}
+
+        /*ferme ma modal en cliquant sur la croix*/
+        function fermerModal () {
+        fenetreModal.classList.remove("active");
+        overlayModal.classList.remove("active");}
+
+        /*affiche ma modalBis*/
+        function afficherModalBis() {
+        
+        fenetreModalBis.classList.add("active"); 
+        }
+       
+        /*fermer ma modalBis en cliquant sur la croix*/
+        function fermerModalBis() {
+        fenetreModalBis.classList.remove("active");
+       } 
     })
 
 
-    const bouttonModifier = document.querySelector(".btn-modal");
-    console.log(bouttonModifier);
-    const fenetreModal = document.querySelector(".modal");
-    const bouttonClose = document.querySelector(".close");
-    console.log (bouttonClose);
+   
 
-
-bouttonModifier.addEventListener("click", ouvrirModal);
-bouttonClose.addEventListener("click", fermerModal);
-
-function ouvrirModal() {
-fenetreModal.classList.add("active");
-}
-
-function fermerModal() {
-  fenetreModal.classList.remove("active");
-}
+    
