@@ -28,8 +28,8 @@ fetch ("http://localhost:5678/api/users/login",{
       .then(response => response.json())
       .then(data => {
         console.log (data);
-        if (data.success) {
-          window.location.replace("index.html");
+        if (data.token) {
+        window.location.replace("index.html");
         }
 
       })

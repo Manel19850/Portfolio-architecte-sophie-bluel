@@ -4,35 +4,29 @@ fetch("http://localhost:5678/api/works")
         console.log(product);
 
         function AfficherProjet(product) {
-            
+    
             for (let i = 0; i < product.length; i++)
-
 
             {
                 const article = product[i];
                 const imageUrl = article.imageUrl;
                 const title = article.title;
                 const id = article.id
-                console.log (id);
-
-        
+                console.log(id);
 
                 const card = document.createElement("div");
-    
                 const imageUrlElement = document.createElement("img");
                 imageUrlElement.src = imageUrl;
-    
                 const titleElement = document.createElement("p");
                 titleElement.innerText = title;
             
-    
                 sectionGallery = document.querySelector(".gallery")
                 card.appendChild(imageUrlElement);
                 card.appendChild(titleElement);
                 sectionGallery.appendChild(card);
-    
+           
             }
-        }
+          }
 
         AfficherProjet(product);
 
@@ -48,7 +42,6 @@ fetch("http://localhost:5678/api/works")
             console.log(projetFiltre);
 
         })
-
 
         const BoutonObjet = document.querySelector("#Objets");
         console.log(BoutonObjet);
@@ -85,10 +78,34 @@ fetch("http://localhost:5678/api/works")
             sectionGallery.innerHTML=""
             AfficherProjet(projetFiltre);
             console.log(projetFiltre);
+        
+          })
+          
+          const bouttonSupprimer = document.querySelector(".bouttonSup");
+          console.log (bouttonSupprimer)
+          bouttonSupprimer.addEventListener ("click",supprimerImage);
+          const id = document.getElementById("img").value;
+
+           function supprimerImage ()
+           
+           {
+            fetch (`http://localhost:5678/api/works/${id}`),
+            {method: "delete",
+            headers: {"Content-Type":"application/json",
+                      "Authorization":"Bearer token"},
+      
+            }
+            .then (response => response.json())
+            .then((id) => id.token);
+      
+      
+          
+          }
+
         })
 
-        /* Fenêtre modale 1 et 2*/
-
+     
+/* Fenêtre modale 1 et 2*/
         /* création des différents bouttons*/
         const bouttonModifier = document.querySelector(".btn-modal");
         const fenetreModal = document.querySelector(".modal");
@@ -116,17 +133,29 @@ fetch("http://localhost:5678/api/works")
 
         /*affiche ma modalBis*/
         function afficherModalBis() {
-        
         fenetreModalBis.classList.add("active"); 
         }
        
-        /*fermer ma modalBis en cliquant sur la croix*/
+        /*fermer ma modalBis -  ma modal et mon overlay en cliquant sur la croix*/
         function fermerModalBis() {
-        fenetreModalBis.classList.remove("active");
+        fenetreModalBis.classList.remove("active")
+        fenetreModal.classList.remove ("active");
+        overlayModal.classList.remove("active");
        } 
-    })
 
 
-   
+      /*supprimer image*/
 
     
+
+
+
+
+
+
+      
+ 
+        
+   
+   
+
