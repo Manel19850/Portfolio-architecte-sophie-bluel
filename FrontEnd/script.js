@@ -3,16 +3,14 @@ fetch("http://localhost:5678/api/works")
     .then((product) => {
         console.log(product);
 
-        function AfficherProjet(product) {
-    
-            for (let i = 0; i < product.length; i++)
+        function AfficherProjet(product){
+          for (let i = 0; i < product.length; i++)
 
             {
                 const article = product[i];
                 const imageUrl = article.imageUrl;
                 const title = article.title;
-                const id = article.id
-                console.log(id);
+                
 
                 const card = document.createElement("div");
                 const imageUrlElement = document.createElement("img");
@@ -80,30 +78,43 @@ fetch("http://localhost:5678/api/works")
             console.log(projetFiltre);
         
           })
-          
-          const bouttonSupprimer = document.querySelector(".bouttonSup");
-          console.log (bouttonSupprimer)
-          bouttonSupprimer.addEventListener ("click",supprimerImage);
-          const id = document.getElementById("img").value;
 
-           function supprimerImage ()
-           
-           {
-            fetch (`http://localhost:5678/api/works/${id}`),
-            {method: "delete",
-            headers: {"Content-Type":"application/json",
-                      "Authorization":"Bearer token"},
-      
-            }
-            .then (response => response.json())
-            .then((id) => id.token);
-      
-      
-          
-          }
+         
+      })
 
-        })
+     
 
+
+   const bouttonsSupprimer = document.querySelectorAll(".bouttonSup");
+   bouttonsSupprimer.forEach((bouttonSupprimer) => {
+     bouttonSupprimer.addEventListener("click", () => {
+       const imgId = bouttonSupprimer. getAttribute("data-id");
+       supprimerImage(imgId);
+     });
+   });
+   const dataToken = localStorage.getItem('token')
+   console.log(dataToken);
+
+   function supprimerImage(imgId)
+   {
+     fetch(`http://localhost:5678/api/works/${imgId}`, {
+       method: "delete",
+       headers: {
+         "Content-Type": "application/json",
+         "Authorization": `Bearer ${dataToken}`
+       }
+     
+     })
+     .then(response => response.json())
+     .then((data) => {
+       console.log(data);
+       localStorage.setItem('token', data.token);
+
+     });
+   }
+ 
+
+  
      
 /* Fenêtre modale 1 et 2*/
         /* création des différents bouttons*/
@@ -144,9 +155,10 @@ fetch("http://localhost:5678/api/works")
        } 
 
 
-      /*supprimer image*/
+  
 
-    
+            
+          
 
 
 
