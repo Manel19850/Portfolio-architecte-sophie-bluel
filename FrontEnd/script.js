@@ -212,8 +212,21 @@ imageModalContainer.appendChild(sectionImageModaleContainer);
         overlayModal.classList.remove("active");}
 
         /*Ajouter l'action de suppression pour chaque projet*/
+        
+       
+  let supprimer = document.createElement("button");
+  supprimer.classList.add ("button");
 
-  supprimer.addEventListener("click", function (){
+  fetch("http://localhost:5678/api/works")
+  .then((reponse) => reponse.json())
+  .then(data => {
+
+    for (let i = 0; i < data.length; i++) {
+      let id = data[i].id;
+      console.log (id);
+
+  supprimer.addEventListener("click", function (event){
+  event.preventDefault();
 
     fetch("http://localhost:5678/api/works/" + data[i].id, {
       method: "DELETE",
@@ -238,7 +251,7 @@ imageModalContainer.appendChild(sectionImageModaleContainer);
       });
   
     })
-
+  }})
 /* création de la deuxième fenetre modale et ajout d'un projet*/
 
 let inputFile = document.getElementById ("photo");
