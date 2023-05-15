@@ -1,19 +1,13 @@
 
-document.querySelector ("form").addEventListener ("submit", function (event){
-  event.preventDefault();
-});
+const loginEmail = document.getElementById("email");
+const loginMotDePasse= document.getElementById("motDePasse");
+const buttonConex = document.getElementById("valider");
+console.log(buttonConex);
 
-const loginEmail = document.getElementById("email")
-const loginMotDePasse= document.getElementById("motDePasse")
-const butonConex = document.getElementById("valider")
-console.log(butonConex);
-
-butonConex.addEventListener("click", function (){
+buttonConex.addEventListener("click", function (){
   if (loginEmail.value.length == 0 || loginMotDePasse.value.length == 0){
       alert('ERROR'); return
-  }
-
-
+    }
 
 fetch ("http://localhost:5678/api/users/login",{
   method:"POST",
@@ -29,8 +23,13 @@ fetch ("http://localhost:5678/api/users/login",{
       .then(data => {
         console.log (data);
         if (data.token) {
-        window.location.replace("index.html");
+        localStorage.setItem("token",data.token)
+      
+        const dataToken = localStorage.getItem('token')
+   console.log(dataToken);
+   window.location.href = "index.html";
         }
+        
 
       })
       .catch((error) => {
@@ -39,5 +38,6 @@ fetch ("http://localhost:5678/api/users/login",{
   })
 
 })
+
 
 
