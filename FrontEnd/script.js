@@ -1,5 +1,19 @@
+
 /* Affichage Dynamique des projets */
 const dataToken = localStorage.getItem('token')
+console.log(dataToken);
+if (dataToken) {
+  const loginBar = document.querySelector('.loginBar');
+  loginBar.classList.add('active');
+  //const loginButton= document.querySelector("#login");
+  //loginButton.innerHTML= '<a href="login.html">Logout</a>'
+}
+else {
+  const loginBar = document.querySelector('.loginBar');
+  loginBar.classList.remove('active');
+ // const loginButton= document.querySelector("#login");
+  //loginButton.innerHTML= '<a href="login.html">Login</a>'
+}
 
 fetch("http://localhost:5678/api/works")
     .then((reponse) => reponse.json())

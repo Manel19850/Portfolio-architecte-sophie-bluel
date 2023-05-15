@@ -3,8 +3,8 @@ const loginEmail = document.getElementById("email");
 const loginMotDePasse= document.getElementById("motDePasse");
 const buttonConex = document.getElementById("valider");
 console.log(buttonConex);
-
-buttonConex.addEventListener("click", function (){
+buttonConex.addEventListener("click", function (event){
+  event.preventDefault();
   if (loginEmail.value.length == 0 || loginMotDePasse.value.length == 0){
       alert('ERROR'); return
     }
