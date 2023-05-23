@@ -213,46 +213,50 @@ imageModalContainer.appendChild(sectionImageModaleContainer);
 
         /*Ajouter l'action de suppression pour chaque projet*/
           
-
-fetch("http://localhost:5678/api/works")
-  .then(response => response.json())
-  .then(projets => {
-    projets.forEach(projet => {
-      let projetId = projet.id;
-      console.log(projetId);
-
-      let supprimer = document.createElement("button");
-      supprimer.classList.add ("button");
-    
-
-  supprimer.addEventListener("click", function (event){
-  event.preventDefault();
-
-    fetch("http://localhost:5678/api/works/" + projetId, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${dataToken}`
-      }
-    })
-      .then((reponse) => {
-  
-        if (reponse.ok) {
-          /*Supprimer l'élément imageContainer*/
-          imageModale.removeChild(sectionImageModaleContainer);
-        } else {
-          // Gérer les erreurs de suppression
-          console.log("Error");
-        }
+        fetch("http://localhost:5678/api/works")
+        .then(response => response.json())
+        .then(projets => {
+          projets.forEach(projet => {
+            let projetId = projet.id;
+            console.log(projetId);
+      
+      
+           
+            let supprimer = document.createElement("button");
+            supprimer.classList.add ("button");
+      
+        supprimer.addEventListener("click", function (event){
+        event.preventDefault();
+        console.log (supprimer);
+        supprimer (projetId);
+      
+          fetch("http://localhost:5678/api/works/" + projetId, {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${dataToken}`
+            }
+          })
+            .then((reponse) => {
+        
+              if (reponse.ok) {
+                /*Supprimer l'élément imageContainer*/
+                imageModale.removeChild(sectionImageModaleContainer);
+              } else {
+                // Gérer les erreurs de suppression
+                console.log("Error");
+              }
+            })
+            .catch((error) => {
+              // Gérer les erreurs de connexion
+              console.log("Une erreur API.");
+            });
+        
+          })
+          
+        })
       })
-      .catch((error) => {
-        // Gérer les erreurs de connexion
-        console.log("Une erreur API.");
-      });
-  
-    })
-  })
-})
+
 /* création de la deuxième fenetre modale et ajout d'un projet*/
 
 let inputFile = document.getElementById ("photo");
