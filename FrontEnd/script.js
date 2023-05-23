@@ -5,14 +5,14 @@ console.log(dataToken);
 if (dataToken) {
   const loginBar = document.querySelector('.loginBar');
   loginBar.classList.add('active');
-  const loginButton= document.querySelector("#login");
-  loginButton.innerHTML= '<a href="login.html">Logout</a>'
+  //const loginButton= document.querySelector("#login");
+  //loginButton.innerHTML= '<a href="login.html">Logout</a>'
 }
 else {
   const loginBar = document.querySelector('.loginBar');
   loginBar.classList.remove('active');
- const loginButton= document.querySelector("#login");
-loginButton.innerHTML= '<a href="login.html">Login</a>'
+ // const loginButton= document.querySelector("#login");
+  //loginButton.innerHTML= '<a href="login.html">Login</a>'
 }
 
 fetch("http://localhost:5678/api/works")
@@ -139,9 +139,9 @@ fetch("http://localhost:5678/api/works")
       for (let i = 0; i < data.length; i++) {
         let imageUrl = data[i].imageUrl;
        
-        let imageModale = document.createElement("img");
-        imageModale.src = imageUrl;
-        imageModale.classList.add("imageModale");
+let imageModale = document.createElement("img");
+imageModale.src = imageUrl;
+imageModale.classList.add("imageModale");
 
 let supprimer = document.createElement("button");
 supprimer.classList.add ("button");
@@ -213,50 +213,46 @@ imageModalContainer.appendChild(sectionImageModaleContainer);
 
         /*Ajouter l'action de suppression pour chaque projet*/
           
-        fetch("http://localhost:5678/api/works")
-        .then(response => response.json())
-        .then(projets => {
-          projets.forEach(projet => {
-            let projetId = projet.id;
-            console.log(projetId);
-      
-      
-           
-            let supprimer = document.createElement("button");
-            supprimer.classList.add ("button");
-      
-        supprimer.addEventListener("click", function (event){
-        event.preventDefault();
-        console.log (supprimer);
-        supprimer (projetId);
-      
-          fetch("http://localhost:5678/api/works/" + projetId, {
-            method: "DELETE",
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": `Bearer ${dataToken}`
-            }
-          })
-            .then((reponse) => {
-        
-              if (reponse.ok) {
-                /*Supprimer l'élément imageContainer*/
-                imageModale.removeChild(sectionImageModaleContainer);
-              } else {
-                // Gérer les erreurs de suppression
-                console.log("Error");
-              }
-            })
-            .catch((error) => {
-              // Gérer les erreurs de connexion
-              console.log("Une erreur API.");
-            });
-        
-          })
-          
-        })
-      })
 
+fetch("http://localhost:5678/api/works")
+  .then(response => response.json())
+  .then(projets => {
+    projets.forEach(projet => {
+      let projetId = projet.id;
+      console.log(projetId);
+
+      let supprimer = document.createElement("button");
+      supprimer.classList.add ("button");
+    
+
+  supprimer.addEventListener("click", function (event){
+  event.preventDefault();
+
+    fetch("http://localhost:5678/api/works/" + projetId, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${dataToken}`
+      }
+    })
+      .then((reponse) => {
+  
+        if (reponse.ok) {
+          /*Supprimer l'élément imageContainer*/
+          imageModale.removeChild(sectionImageModaleContainer);
+        } else {
+          // Gérer les erreurs de suppression
+          console.log("Error");
+        }
+      })
+      .catch((error) => {
+        // Gérer les erreurs de connexion
+        console.log("Une erreur API.");
+      });
+  
+    })
+  })
+})
 /* création de la deuxième fenetre modale et ajout d'un projet*/
 
 let inputFile = document.getElementById ("photo");
