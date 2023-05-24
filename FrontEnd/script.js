@@ -5,14 +5,14 @@ console.log(dataToken);
 if (dataToken) {
   const loginBar = document.querySelector('.loginBar');
   loginBar.classList.add('active');
-  //const loginButton= document.querySelector("#login");
-  //loginButton.innerHTML= '<a href="login.html">Logout</a>'
+  const loginButton= document.querySelector("#login");
+  loginButton.innerHTML= '<a href="login.html">Logout</a>'
 }
 else {
   const loginBar = document.querySelector('.loginBar');
   loginBar.classList.remove('active');
- // const loginButton= document.querySelector("#login");
-  //loginButton.innerHTML= '<a href="login.html">Login</a>'
+ const loginButton= document.querySelector("#login");
+loginButton.innerHTML= '<a href="login.html">Login</a>'
 }
 
 fetch("http://localhost:5678/api/works")
@@ -246,8 +246,7 @@ fetch("http://localhost:5678/api/works")
         }
       })
       .catch((error) => {
-        // Gérer les erreurs de connexion
-        console.log("Une erreur API.");
+        console.log("error.");
       });
   
     })
@@ -266,23 +265,22 @@ const photo = inputFile.files[0];
 const objectURL = URL.createObjectURL(photo);
 preview.src = objectURL;
 preview.style.display = "block";
-
 }
+
 validerPhoto.addEventListener("click", function() {
-  preview.style.display = "none";
+preview.style.display = "none";
 
   const formData = new FormData();
   formData.append("photo", inputFile.files[0]);
 
   
+
   fetch("http://localhost:5678/api/works", {
     method: "POST",
-    header: {"Authorization": `Bearer ${dataToken}`},
+    headers: {"Authorization": `Bearer ${dataToken}`},
     body: formData
   })
   .then(response => response.json())
   .then(data => console.log(data))
-  .catch(error => console.error(error));
-});
-
+})
    
