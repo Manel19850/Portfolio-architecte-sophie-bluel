@@ -32,6 +32,7 @@ fetch("http://localhost:5678/api/works")
                 const card = document.createElement("div");
                 const imageUrlElement = document.createElement("img");
                 imageUrlElement.src = imageUrl;
+                card.setAttribute("id","accueil"+article.id);
                 const titleElement = document.createElement("p");
                 titleElement.innerText = title;
                 
@@ -128,45 +129,61 @@ fetch("http://localhost:5678/api/works")
         })
      
 /* Affichache dynamique des projets dans la fenêtre modale*/
-
 fetch("http://localhost:5678/api/works")
-    .then((reponse) => reponse.json())
-    .then(data => {
+  .then((reponse) => reponse.json())
+  .then((data) => {
+    let imageModalContainer = document.querySelector(".modal-body");
 
-      let imageModalContainer= document.querySelector(".modal-body");
-        
+    for (let i = 0; i < data.length; i++) {
+      let imageUrl = data[i].imageUrl;
 
-      for (let i = 0; i < data.length; i++) {
-        let imageUrl = data[i].imageUrl;
-       
-let imageModale = document.createElement("img");
-imageModale.src = imageUrl;
-imageModale.classList.add("imageModale");
+      let imageModale = document.createElement("img");
+      imageModale.src = imageUrl;
+      imageModale.classList.add("imageModale");
 
-let supprimer = document.createElement("button");
-supprimer.classList.add ("button");
+      let supprimer = document.createElement("button");
+      supprimer.classList.add("button");
 
-let iconesupprimer = document.createElement("i");
-iconesupprimer.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+      let iconesupprimer = document.createElement("i");
+      iconesupprimer.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
 
-let texteEdite = document.createElement("p");
-texteEdite.innerText = "édité";
+      let projetId = data[i].id;
 
-supprimer.appendChild(iconesupprimer);
+      supprimer.addEventListener("click", function () {
+        fetch("http://localhost:5678/api/works/" + projetId, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${dataToken}`,
+          },
+        })
+          .then((reponse) => {
+            if (reponse.ok) {
+              alert("Le projet est supprimé");
+              imageContainer.remove();
+              let imageAccueil=document.getElementById("accueil"+projetId);
+              console.log(imageAccueil);
+              imageAccueil.remove();
+              }
+            })
+            })
+          
+      let texteEdite = document.createElement("p");
+      texteEdite.innerText = "édité";
 
-let imageContainer = document.createElement("div");
-imageContainer.classList.add("image-container");
-imageContainer.appendChild(imageModale);
-imageContainer.appendChild(supprimer);
+      supprimer.appendChild(iconesupprimer);
 
-let sectionImageModaleContainer = document.createElement("div");
-sectionImageModaleContainer.appendChild(imageContainer);
-sectionImageModaleContainer.appendChild(texteEdite);
-imageModalContainer.appendChild(sectionImageModaleContainer);
+      let imageContainer = document.createElement("div");
+      imageContainer.classList.add("image-container");
+      imageContainer.appendChild(imageModale);
+      imageContainer.appendChild(supprimer);
 
-     }
-    
-    })
+      let sectionImageModaleContainer = document.createElement("div");
+      sectionImageModaleContainer.appendChild(imageContainer);
+      sectionImageModaleContainer.appendChild(texteEdite);
+      imageModalContainer.appendChild(sectionImageModaleContainer);
+    }
+  });
 
         /* création des  fentres modales et de leurs actions*/
 
@@ -211,76 +228,52 @@ imageModalContainer.appendChild(sectionImageModaleContainer);
         fenetreModal.classList.remove("active");
         overlayModal.classList.remove("active");}
 
-        /*Ajouter l'action de suppression pour chaque projet*/
-          
+      
 
-fetch("http://localhost:5678/api/works")
-  .then(response => response.json())
-  .then(projets => {
-    projets.forEach(projet => {
-      let projetId = projet.id;
-      console.log(projetId);
-
-      let supprimer = document.createElement("button");
-      supprimer.classList.add ("button");
-    
-
-  supprimer.addEventListener("click", function (event){
-  event.preventDefault();
-
-    fetch("http://localhost:5678/api/works/" + projetId, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${dataToken}`
-      }
-    })
-      .then((reponse) => {
-  
-        if (reponse.ok) {
-          /*Supprimer l'élément imageContainer*/
-          imageModale.removeChild(sectionImageModaleContainer);
-        } else {
-          // Gérer les erreurs de suppression
-          console.log("Error");
-        }
-      })
-      .catch((error) => {
-        console.log("error.");
-      });
-  
-    })
-  })
-})
 /* création de la deuxième fenetre modale et ajout d'un projet*/
 
-let inputFile = document.getElementById ("photo");
-console.log (inputFile);
- const preview = document.getElementById("preview");
-const validerPhoto= document.getElementsByClassName ("valider-img")[0];
+let inputFile = document.getElementById("photo");
+console.log(inputFile);
+const preview = document.getElementById("preview");
+const validerPhoto = document.getElementsByClassName("valider-img")[0];
 
-inputFile.onchange = function(){
-const photo = inputFile.files[0];
+let ajouterPhoto = null;
 
-const objectURL = URL.createObjectURL(photo);
-preview.src = objectURL;
-preview.style.display = "block";
-}
+inputFile.onchange = function () {
+  ajouterPhoto = inputFile.files[0];
 
-validerPhoto.addEventListener("click", function() {
-preview.style.display = "none";
+  const imageURL = URL.createObjectURL(ajouterPhoto);
+  preview.src = imageURL;
+  preview.style.display = "block";
+};
 
-  const formData = new FormData();
-  formData.append("photo", inputFile.files[0]);
+validerPhoto.addEventListener("click", function () {
+  preview.style.display = "none";
+ 
 
-  
+  if (ajouterPhoto) {
+    
+    const formData = new FormData();
+    formData.append("image", ajouterPhoto);
+    formData.append("title",titre.value);
+    formData.append("category", categories.value);
 
-  fetch("http://localhost:5678/api/works", {
-    method: "POST",
-    headers: {"Authorization": `Bearer ${dataToken}`},
-    body: formData
-  })
-  .then(response => response.json())
-  .then(data => console.log(data))
-})
-   
+    fetch("http://localhost:5678/api/works", {
+      method: "POST",
+      headers: {Authorization: `Bearer ${dataToken}`},
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        
+        console.log(data)
+        alert ("ok");
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+      
+  } else {
+    console.log("Aucun fichier sélectionné.");
+  }
+});
