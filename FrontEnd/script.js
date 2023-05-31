@@ -258,8 +258,8 @@ validerPhoto.addEventListener("click", function () {
     
     const formData = new FormData();
     formData.append("image",image);
-    formData.append("title",title);
-    formData.append("category",categoryId);
+    formData.append("title",title.value);
+    formData.append("category",categoryId.value);
 
     fetch("http://localhost:5678/api/works", {
       method: "POST",
