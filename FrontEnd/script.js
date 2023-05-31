@@ -164,6 +164,7 @@ fetch("http://localhost:5678/api/works")
               let imageAccueil=document.getElementById("accueil"+projetId);
               console.log(imageAccueil);
               imageAccueil.remove();
+            
               }
             })
             })
@@ -237,12 +238,14 @@ console.log(inputFile);
 const preview = document.getElementById("preview");
 const validerPhoto = document.getElementsByClassName("valider-img")[0];
 
-let ajouterPhoto = null;
+let image = null;
+let title = document.getElementById("title"); 
+let categoryId = document.getElementById("category"); 
 
 inputFile.onchange = function () {
-  ajouterPhoto = inputFile.files[0];
+  image = inputFile.files[0];
 
-  const imageURL = URL.createObjectURL(ajouterPhoto);
+  const imageURL = URL.createObjectURL(image);
   preview.src = imageURL;
   preview.style.display = "block";
 };
@@ -251,12 +254,12 @@ validerPhoto.addEventListener("click", function () {
   preview.style.display = "none";
  
 
-  if (ajouterPhoto) {
+  if (image) {
     
     const formData = new FormData();
-    formData.append("image", ajouterPhoto);
-    formData.append("title",titre.value);
-    formData.append("category", categories.value);
+    formData.append("image",image);
+    formData.append("title",title);
+    formData.append("category",categoryId);
 
     fetch("http://localhost:5678/api/works", {
       method: "POST",
