@@ -1,19 +1,33 @@
 
 /* Affichage Dynamique des projets */
-const dataToken = localStorage.getItem('token')
-console.log(dataToken);
+const loginButton = document.querySelector("#login");
+const dataToken = localStorage.getItem('token');
+
 if (dataToken) {
+  // Utilisateur connecté
   const loginBar = document.querySelector('.loginBar');
   loginBar.classList.add('active');
-  const loginButton= document.querySelector("#login");
-  loginButton.innerHTML= '<a href="login.html">Logout</a>'
-}
-else {
+  const filtres = document.querySelector('.filtres');
+  filtres.classList.add('hidden');
+  loginButton.innerHTML = '<a href="#">Logout</a>';
+} else {
+  // Utilisateur déconnecté
   const loginBar = document.querySelector('.loginBar');
   loginBar.classList.remove('active');
- const loginButton= document.querySelector("#login");
-loginButton.innerHTML= '<a href="login.html">Login</a>'
+  loginButton.innerHTML = '<a href="login.html">Login</a>';
 }
+
+loginButton.addEventListener("click", function () {
+  if (dataToken) {
+    // Supprimer le dataToken du localStorage
+    localStorage.removeItem('token');
+    window.location.href = "index.html";
+  } else {
+    window.location.href = "login.html";
+  }
+});
+
+
 
 fetch("http://localhost:5678/api/works")
     .then((reponse) => reponse.json())
