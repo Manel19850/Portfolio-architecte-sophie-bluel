@@ -15,6 +15,10 @@ if (dataToken) {
   const loginBar = document.querySelector('.loginBar');
   loginBar.classList.remove('active');
   loginButton.innerHTML = '<a href="login.html">Login</a>';
+  const modification=document.querySelector ('.modification');
+  modification.classList.add('hidden')
+  const modification2=document.querySelector ('.modification2');
+  modification2.classList.add('hidden')
 }
 
 loginButton.addEventListener("click", function () {
@@ -173,12 +177,12 @@ fetch("http://localhost:5678/api/works")
         })
           .then((reponse) => {
             if (reponse.ok) {
+
               alert("Le projet est supprimé");
               imageContainer.remove();
               let imageAccueil=document.getElementById("accueil"+projetId);
               console.log(imageAccueil);
               imageAccueil.remove();
-            
               }
             })
             })
@@ -230,22 +234,45 @@ fetch("http://localhost:5678/api/works")
 
         /*affiche ma modalBis*/
         function afficherModalBis() {
-        fenetreModalBis.classList.add("active"); }
+        fenetreModalBis.classList.add("active");
+        }
        
         /*fermer ma modalBis -  ma modal et mon overlay en cliquant sur la croix*/
         function fermerModalBis() {
         fenetreModalBis.classList.remove("active")
         fenetreModal.classList.remove ("active");
-        overlayModal.classList.remove("active")} 
+        overlayModal.classList.remove("active")
+        } 
 
        function fermetureViaOverlay() {
         fenetreModalBis.classList.remove("active");
         fenetreModal.classList.remove("active");
-        overlayModal.classList.remove("active");}
+        overlayModal.classList.remove("active");
+     }
 
       
 
 /* création de la deuxième fenetre modale et ajout d'un projet*/
+
+let selectedCategory = ''; // Variable pour stocker la catégorie sélectionnée
+const select = document.querySelector('select');
+fetch('http://localhost:5678/api/categories')
+  .then(response => response.json())
+  .then(data => {
+    data.forEach(item => {
+      const option = document.createElement('option');
+      option.value = item.id;
+      option.text = item.name
+      select.appendChild(option);
+    });
+     // Écouter le changement de sélection dans la liste déroulante
+     select.addEventListener('change', () => {
+      selectedCategory = select.value; // Mettre à jour la valeur de la catégorie sélectionnée
+    });
+  })
+  .catch(error => console.error(error));
+
+  
 
 let inputFile = document.getElementById("photo");
 console.log(inputFile);
@@ -254,7 +281,7 @@ const validerPhoto = document.getElementsByClassName("valider-img")[0];
 
 let image = null;
 let title = document.getElementById("title"); 
-let categoryId = document.getElementById("category"); 
+let categoryId = document.getElementById("category-select"); 
 
 inputFile.onchange = function () {
   image = inputFile.files[0];
@@ -282,9 +309,48 @@ validerPhoto.addEventListener("click", function () {
     })
       .then((response) => response.json())
       .then((data) => {
-        
         console.log(data)
+        const card = document.createElement("div");
+                const imageUrlElement = document.createElement("img");
+                imageUrlElement.src = data.imageUrl;
+                card.setAttribute("id","accueil"+data.id);
+                const titleElement = document.createElement("p");
+                titleElement.innerText = data.title;
+                
+            
+                sectionGallery = document.querySelector(".gallery")
+                card.appendChild(imageUrlElement);
+                card.appendChild(titleElement);
+                sectionGallery.appendChild(card);
+
+                let imageModalContainer = document.querySelector(".modal-body");
+                let imageModale = document.createElement("img");
+      imageModale.src = data.imageUrl;
+      imageModale.classList.add("imageModale");
+
+      let supprimer = document.createElement("button");
+      supprimer.classList.add("button");
+
+      let iconesupprimer = document.createElement("i");
+      iconesupprimer.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+
+                let texteEdite = document.createElement("p");
+                texteEdite.innerText = "édité";
+          
+                supprimer.appendChild(iconesupprimer);
+          
+                let imageContainer = document.createElement("div");
+                imageContainer.classList.add("image-container");
+                imageContainer.appendChild(imageModale);
+                imageContainer.appendChild(supprimer);
+          
+                let sectionImageModaleContainer = document.createElement("div");
+                sectionImageModaleContainer.appendChild(imageContainer);
+                sectionImageModaleContainer.appendChild(texteEdite);
+                imageModalContainer.appendChild(sectionImageModaleContainer);
+              
         alert ("ok");
+        fermerModalBis ();
       })
       .catch((error) => {
         console.error("Error:", error);

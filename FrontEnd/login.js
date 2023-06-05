@@ -9,6 +9,7 @@ buttonConex.addEventListener("click", function (event){
       alert('ERROR'); return
     }
 
+
 fetch ("http://localhost:5678/api/users/login",{
   method:"POST",
   headers: {"Content-Type":"application/json"},
@@ -28,6 +29,9 @@ fetch ("http://localhost:5678/api/users/login",{
         const dataToken = localStorage.getItem('token')
    console.log(dataToken);
    window.location.href = "index.html";
+        }
+        else {
+          alert('Les informations de connexion sont incorrectes.');
         }
         
 

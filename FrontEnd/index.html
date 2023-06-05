@@ -29,9 +29,9 @@
 	<nav>
 		<ul>
 			<li>Projets</li> 
-			<li>contact</li>
+			<li>Contact</li>
 			<button id="login"><a href="login.html">Login</a></button>
-			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+			<li><img src="./assets/icons/instagram.png" alt="Instagram" width="20px" ></li>
 		</ul>
 	</nav>
 
@@ -40,8 +40,12 @@
 	<section id="introduction">
 		<figure>
 			<img src="./assets/images/sophie-bluel.png" alt="">
+			
+			<div class="modification"> <i class="fa-solid fa-pen-to-square"></i> modifier</div> 
+			
 		</figure>
 		<article>
+			<div class="modification2"> <i class="fa-solid fa-pen-to-square"></i> modifier</div> 
 			<h2>Designer d'espace</h2>
 			<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison finale du chantier.</p>
 			<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
@@ -58,6 +62,7 @@
 			
 				<div class="overlay-modal"></div>
 				<div class = "modal">
+					
 					
 					<div class = "modal-header">
 						<div class="close"><i class="fa-sharp fa-solid fa-xmark"></i></div>
@@ -91,17 +96,13 @@
 						
 								<div class="blocAjoutInfo">
 									
-										<label for="name" id="tit">Titre</label>
-										<input type="text" name="title" id="title" value="Malt & Juniper - New York"> 
-										<label for="name" id="category">Catégrories</label>
-										<select name="category" id="categories">
-											<option value="categorie1">Tous</option>
-											<option value="categorie2">Objets</option>
-											<option value="categorie3">Appartements</option>
-											<option value="categorie1">Hôtels et Restaurants</option>
-										</select>
-						
-						
+										<div id="title-category">
+											<p> Titre </p>
+											<input type="text" id="title">
+											<p> Catégories</p>
+											<select id="category-select"></select>
+										</div>
+									
 												<div class="border-bis"></div>
 												<button class="valider-img">valider</button>
 												
