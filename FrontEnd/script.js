@@ -19,6 +19,8 @@ if (dataToken) {
   modification.classList.add('hidden')
   const modification2=document.querySelector ('.modification2');
   modification2.classList.add('hidden')
+  const btnMondal=document.querySelector ('.btn-modal');
+  btnMondal.classList.add('hidden')
 }
 
 loginButton.addEventListener("click", function () {
